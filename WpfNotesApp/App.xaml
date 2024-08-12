@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WpfNotesApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:NotesSortOptionEnumToBooleanConverter x:Key="NotesSortOptionEnumToBooleanConverter" />
     </Application.Resources>
 </Application>

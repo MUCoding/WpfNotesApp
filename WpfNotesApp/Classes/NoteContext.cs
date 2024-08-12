@@ -8,7 +8,7 @@ namespace WpfNotesApp.Classes
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var path = "path-to-your-database\\notes.db";
+            var path = "C:\\Users\\marku\\source\\repos\\WpfNotesApp\\notes.db";
             optionsBuilder.UseSqlite($"Data Source={path}");
         }
     }

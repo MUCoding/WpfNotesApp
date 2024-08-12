@@ -7,21 +7,14 @@
         mc:Ignorable="d"
         Title="Notes App" Height="450" Width="800">
     <Grid>
-        <!-- List view -->
-        <ListBox x:Name="NotesListBox" Margin="55,49,590,65" d:ItemsSource="{d:SampleData ItemCount=5}" DisplayMemberPath="Title" SelectionChanged="NotesListBox_SelectionChanged"/>
+        <ListBox x:Name="NotesListBox" Margin="55,49,590,65" ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}" DisplayMemberPath="Title"/>
         <TextBlock x:Name="SortByTextBlock" HorizontalAlignment="Left" Margin="215,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="en-gb" Text="Sort by:"/></TextBlock>
-        <RadioButton x:Name="SortByDefaultRadioButton" Content="Default" HorizontalAlignment="Left" Margin="215,70,0,0" VerticalAlignment="Top" IsChecked="True" Checked="SortByDefaultRadioButton_Checked"/>
-        <RadioButton x:Name="SortByTitleRadioButton" Content="Title" HorizontalAlignment="Left" Margin="215,90,0,0" VerticalAlignment="Top" Checked="SortByTitleRadioButton_Checked"/>
-        <RadioButton x:Name="SortByLastModifiedRadioButton" Content="Last modified" HorizontalAlignment="Left" Margin="215,110,0,0" VerticalAlignment="Top" Checked="SortByLastModifiedRadioButton_Checked"/>
-        <CheckBox x:Name="HideReadyCheckBox" Content="Hide ready" HorizontalAlignment="Left" Margin="215,159,0,0" VerticalAlignment="Top" Checked="HideReadyCheckBox_Checked" Unchecked="HideReadyCheckBox_Checked"/>
-        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="55,374,0,0" VerticalAlignment="Top" Width="55" Click="AddButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="155,374,0,0" VerticalAlignment="Top" Width="55" IsEnabled="False" Click="DeleteButton_Click"/>
-        <!-- Editing view -->
-        <TextBlock x:Name="TitleTextBlock" Visibility="Hidden" HorizontalAlignment="Left" Margin="450,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="en-gb" Text="Title:"/></TextBlock>
-        <TextBox x:Name="TitleTextBox" Visibility="Hidden" HorizontalAlignment="Left" Margin="450,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" TextChanged="TitleTextBox_TextChanged"/>
-        <TextBlock x:Name="DescriptionTextBlock" Visibility="Hidden" HorizontalAlignment="Left" Margin="450,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Description"/><Run Language="en-gb" Text=":"/></TextBlock>
-        <TextBox x:Name="DescriptionTextBox" Visibility="Hidden" HorizontalAlignment="Left" Margin="450,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Height="200"/>
-        <CheckBox x:Name="IsReadyCheckBox" Visibility="Hidden" Content="Ready" HorizontalAlignment="Left" Margin="450,339,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="SaveButton" Visibility="Hidden" Content="Save" HorizontalAlignment="Left" Margin="450,374,0,0" VerticalAlignment="Top" Width="55" Click="SaveButton_Click"/>
+        <RadioButton x:Name="SortByDefaultRadioButton" Content="Default" HorizontalAlignment="Left" Margin="215,70,0,0" VerticalAlignment="Top" IsChecked="{Binding SelectedSortOption, Converter={StaticResource NotesSortOptionEnumToBooleanConverter}, ConverterParameter={x:Static local:NotesSortOption.Default}}" />
+        <RadioButton x:Name="SortByTitleRadioButton" Content="Title" HorizontalAlignment="Left" Margin="215,90,0,0" VerticalAlignment="Top" IsChecked="{Binding SelectedSortOption, Converter={StaticResource NotesSortOptionEnumToBooleanConverter}, ConverterParameter={x:Static local:NotesSortOption.Title}}" />
+        <RadioButton x:Name="SortByLastModifiedRadioButton" Content="Last modified" HorizontalAlignment="Left" Margin="215,110,0,0" VerticalAlignment="Top" IsChecked="{Binding SelectedSortOption, Converter={StaticResource NotesSortOptionEnumToBooleanConverter}, ConverterParameter={x:Static local:NotesSortOption.LastModified}}" />
+        <CheckBox x:Name="HideReadyCheckBox" Content="Hide ready" HorizontalAlignment="Left" Margin="215,159,0,0" VerticalAlignment="Top" IsChecked="{Binding HideReady}"/>
+        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="55,374,0,0" VerticalAlignment="Top" Width="55" Command="{Binding ShowAddViewCommand}"/>
+        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="155,374,0,0" VerticalAlignment="Top" Width="55" Command="{Binding DeleteNoteCommand}"/>
+        <ContentControl Content="{Binding CurrentView}" />
     </Grid>
 </Window>
